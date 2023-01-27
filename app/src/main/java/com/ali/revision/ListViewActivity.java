@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.ali.revision.adapter.PersonneAdapter;
@@ -27,15 +29,23 @@ public class ListViewActivity extends AppCompatActivity {
 
         List<Personne> personnes = new ArrayList<>();
         personnes.add(new Personne(1, R.drawable.ic_launcher_background, "ali", "example@gmail.com"));
-        personnes.add(new Personne(1, R.drawable.image1, "ali", "mohcine@gmail.com"));
+        personnes.add(new Personne(2, R.drawable.image1, "mohcine", "mohcine@gmail.com"));
 
         listView.setAdapter(new PersonneAdapter(this, personnes));
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Personne p = personnes.get(position);
+            Intent i = new Intent(this, PersonneDetailsActivity.class);
+            i.putExtra("personne", p);
+            startActivity(i);
+
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
 

@@ -1,8 +1,11 @@
 package com.ali.revision.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
-public class Personne {
+public class Personne implements Parcelable {
     private int id;
     private int image;
     private String name;
@@ -14,6 +17,25 @@ public class Personne {
         this.name = name;
         this.email = email;
     }
+
+    protected Personne(Parcel in) {
+        id = in.readInt();
+        image = in.readInt();
+        name = in.readString();
+        email = in.readString();
+    }
+
+    public static final Creator<Personne> CREATOR = new Creator<Personne>() {
+        @Override
+        public Personne createFromParcel(Parcel in) {
+            return new Personne(in);
+        }
+
+        @Override
+        public Personne[] newArray(int size) {
+            return new Personne[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -45,5 +67,18 @@ public class Personne {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(image);
+        dest.writeString(name);
+        dest.writeString(email);
     }
 }
