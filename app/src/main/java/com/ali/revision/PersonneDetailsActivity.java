@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ali.revision.model.Personne;
+import com.ali.revision.model.User;
 
 public class PersonneDetailsActivity extends AppCompatActivity {
 
@@ -14,13 +15,11 @@ public class PersonneDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personne_details);
 
-        Personne p = this.getIntent().getParcelableExtra("personne");
+        User u = this.getIntent().getParcelableExtra("user");
 
-        ((ImageView)findViewById(R.id.image)).setImageResource(
-                p.getImage()
-        );
-        ((TextView)findViewById(R.id.name)).setText(p.getName());
-        ((TextView)findViewById(R.id.email)).setText(p.getEmail());
+        ((ImageView)findViewById(R.id.image)).setImageResource(R.drawable.image1);
+        ((TextView)findViewById(R.id.name)).setText(u.getNom());
+        ((TextView)findViewById(R.id.email)).setText(u.getEmail());
 
     }
 }

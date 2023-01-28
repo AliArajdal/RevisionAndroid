@@ -13,7 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.ali.revision.adapter.PersonneAdapter;
+import com.ali.revision.adapter.UserAdapter;
+import com.ali.revision.database.Dao;
 import com.ali.revision.model.Personne;
+import com.ali.revision.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +29,15 @@ public class ListViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_view);
 
         ListView listView = findViewById(R.id.list_view);
-
-        List<Personne> personnes = new ArrayList<>();
-        personnes.add(new Personne(1, R.drawable.ic_launcher_background, "ali", "example@gmail.com"));
-        personnes.add(new Personne(2, R.drawable.image1, "mohcine", "mohcine@gmail.com"));
-
-        listView.setAdapter(new PersonneAdapter(this, personnes));
+        Dao dao = new Dao(this);
+        dao.open();
+        List<User> users = dao.allUsers();
+        listView.setAdapter(new UserAdapter(this, users));
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Personne p = personnes.get(position);
+            User u = users.get(position);
             Intent i = new Intent(this, PersonneDetailsActivity.class);
-            i.putExtra("personne", p);
+            i.putExtra("user", u);
             startActivity(i);
 
         });
